@@ -26,9 +26,7 @@ const Layout = () => {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />
-						{/* <Route path="/" element={<People />} /> */}
-						{/* <Route path="/" element={<Starships />} />
-						<Route path="/" element={<Vehicles/>} /> */}
+					
 					</Routes>
 					<Footer />
 				</ScrollToTop>
