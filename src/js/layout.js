@@ -3,9 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
-// import { People } from "/src/js/views/People.jsx";
-// import { Starships } from "/src/js/views/Starships.jsx";
-// import { Vehicles } from "/src/js/views/Vehicles.jsx";
+
+import  People  from "/src/js/views/People.jsx";
+import  Starships  from "/src/js/views/Starships.jsx";
+import  Vehicles  from "/src/js/views/Vehicles.jsx";
 
 
 import injectContext from "./store/appContext";
@@ -26,6 +27,9 @@ const Layout = () => {
 					<Navbar />
 					<Routes>
 						<Route path="/" element={<Home />} />
+						<Route path="/people/:id" element={<People />} />
+						<Route path="/vehicles/:id" element={<Vehicles />} />
+						<Route path="/starships/:id" element={<Starships />} />
 					
 					</Routes>
 					<Footer />

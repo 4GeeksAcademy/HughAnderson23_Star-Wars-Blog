@@ -16,16 +16,16 @@ const Card = ({children, title, img, setFav}) => {
     <>
       <div className="card" style={{ width: "100%" }}>
         <div className="row g-0">
-          <div className="col-4">
-            <img src={img} className="img-fluid rounded-start" alt="..." />
-          </div>
-          <div className="col-6">
+           {img ? (
+                <img src={img} className="img-fluid rounded" alt="..." />
+           ) : (
+            ""
+           )}
             <div className="card-body">
               <h5 className="card-title">{title}</h5> 
               {children}
             </div>
-          </div>
-          <div className="col-2 d-flex flex-column justify-content-around align-items-center">
+          <div className="card-footer d-flex flex-row justify-content-around align-items-center">
             <Link to={""}>Details</Link>
             <button className="btn btn primary" onClick={setFav} >Favorite/Unfavorite</button>  
           </div>

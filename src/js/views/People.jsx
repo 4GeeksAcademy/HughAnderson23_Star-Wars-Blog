@@ -1,16 +1,19 @@
-// const People = ()=> {
-//     const { id }
-// }
-
 import React from "react";
 
+import SingleItemLayout from "../component/SingleItemLayout.jsx";
+import {useParams} from "react-router";
 // import Card from "/src/js/component/Card.jsx";
 
 const People = () => {
-    
-
-    return (
-      <div>I did it for the people</div>
-    );
+  const {id} = useParams();
+    return <div>
+      <section className="container mt-3">
+       <h1>People</h1>  
+        <SingleItemLayout>
+          <code>{id}</code>
+        </SingleItemLayout>
+      </section>
+    </div>;
   };
-  export {People}
+
+  export default People;

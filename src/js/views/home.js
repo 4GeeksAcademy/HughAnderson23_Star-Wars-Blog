@@ -33,7 +33,9 @@ const Home = () => {
 					<h2>People</h2>
 					<div className="d-flex flex-row gap-2 mt2">
 						{store.people.map((person, idx) => (
-							<Card key={idx}/>
+							<Card key={idx} title={person.name}>
+								Some content based on <code>person</code>
+							</Card>
 						))}
 					</div>
 				</div>
