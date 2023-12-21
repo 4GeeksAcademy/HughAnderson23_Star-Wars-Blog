@@ -1,0 +1,1 @@
+const SingleItemLayout = ({ children })

@@ -1,15 +1,21 @@
 import React from "react";
-import rigoImage from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
-export const Home = () => (
-	<div className="text-center mt-5">
-		<h1>Hello Rigo!</h1>
-		<p>
-			<img src={rigoImage} />
-		</p>
-		<a href="#" className="btn btn-success">
-			If you see this green button, bootstrap is working
-		</a>
+import  { People }  from "/src/js/views/People.jsx";
+// import { Starships } from "/src/js/views/Starships.jsx";
+// import { Vehicles } from "/src/js/views/Vehicles.jsx";
+// useEffect that runs a get 
+
+
+// store.people.map((person, id) => )
+
+const Home = () => (
+	<div className="d-flex flex-column gap-3 ">
+		
+		<People/>
+
+
 	</div>
 );
+
+export { Home };
