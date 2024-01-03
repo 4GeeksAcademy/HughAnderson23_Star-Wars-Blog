@@ -14,7 +14,7 @@ function PlanetDetail() {
     return <div>Loading...</div>;
   }
 
-  const { name } = store.currentPlanet;
+  const { name, population, terrain, climate, gravity } = store.currentPlanet;
 
   return (
     <div className="card mt-5" style={{ width: "30rem", margin: "auto" }}>
@@ -26,6 +26,10 @@ function PlanetDetail() {
       />
       <div className="card-body">
         <h1 className="card-title">{name}</h1>
+        <p className="card-text">Population: {population}</p>
+        <p className="card-text">Terrain: {terrain}</p>
+        <p className="card-text">Climate: {climate}</p>
+        <p className="card-text">Gravity: {gravity}</p>
       </div>
     </div>
   );
