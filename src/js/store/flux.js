@@ -1,113 +1,140 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	const apiUrl = "https://swapi.dev/api/";
 	return {
-		store: {
-			people: [
-				{
-					"name": "Luke Skywalker",
-					"height": "172",
-					"mass": "77",
-					"hair_color": "blond",
-					"skin_color": "fair",
-					"eye_color": "blue",
-					"birth_year": "19BBY",
-					"gender": "male",
-					"homeworld": "https://swapi.dev/api/planets/1/",
-					"films": [
-						"https://swapi.dev/api/films/1/",
-						"https://swapi.dev/api/films/2/",
-						"https://swapi.dev/api/films/3/",
-						"https://swapi.dev/api/films/6/"
-					],
-					"species": [],
-					"vehicles": [
-						"https://swapi.dev/api/vehicles/14/",
-						"https://swapi.dev/api/vehicles/30/"
-					],
-					"starships": [
-						"https://swapi.dev/api/starships/12/",
-						"https://swapi.dev/api/starships/22/"
-					],
-					"created": "2014-12-09T13:50:51.644000Z",
-					"edited": "2014-12-20T21:17:56.891000Z",
-					"url": "https://swapi.dev/api/people/1/"
-				},
-				
-			],
-		
-		
-			vehicles: [
-				{
-					"name": "X-34 landspeeder",
-					"model": "X-34 landspeeder",
-					"manufacturer": "SoroSuub Corporation",
-					"cost_in_credits": "10550",
-					"length": "3.4 ",
-					"max_atmosphering_speed": "250",
-					"crew": "1",
-					"passengers": "1",
-					"cargo_capacity": "5",
-					"consumables": "unknown",
-					"vehicle_class": "repulsorcraft",
-					"pilots": [],
-					"films": [
-						"https://swapi.dev/api/films/1/"
-					],
-					"created": "2014-12-10T16:13:52.586000Z",
-					"edited": "2014-12-20T21:30:21.668000Z",
-					"url": "https://swapi.dev/api/vehicles/7/"
-				},
-			],
-			starships:[
-				{
-					MGLT: "10 MGLT",
-					cargo_capacity: "1000000000000",
-					consumables: "3 years",
-					cost_in_credits: "1000000000000",
-					created: "2014-12-10T16:36:50.509000Z",
-					crew: "342953",
-					edited: "2014-12-10T16:36:50.509000Z",
-					hyperdrive_rating: "4.0",
-					length: "120000",
-					manufacturer: "Imperial Department of Military Research, Sienar Fleet Systems",
-					max_atmosphering_speed: "n/a",
-					model: "DS-1 Orbital Battle Station",
-					name: "Death Star",
-					passengers: "843342",
-					films: [
-						"https://swapi.dev/api/films/1/"
-					],
-					pilots: [],
-					starship_class: "Deep Space Mobile Battlestation",
-					url: "https://swapi.dev/api/starships/9/"
-				}
-			]
+	  store: {
+		people: [],
+		planets: [],
+		starships: [],
+		favorites: [],
+		currentPerson: null,
+		currentPlanet: null,
+		currentStarship: null,
+	  },
+	  actions: {
+		fetchPeople: async (resource = "people", page = 1, count = 0) => {
+		  if (count >= 10) {
+			return;
+		  }
+  
+		  const resp = await fetch(
+			`https://swapi.dev/api/${resource}/?page=${page}`
+		  );
+		  const data = await resp.json();
+  
+		  const peopleWithId = data.results.map((person) => {
+			const urlParts = person.url.split("/");
+			const id = urlParts[urlParts.length - 2];
+			return { ...person, id };
+		  });
+  
+		  setStore({ people: [...getStore().people, ...peopleWithId] });
+  
+		  if (data.next) {
+			getActions().fetchPeople(resource, page + 1, count + 1);
+		  }
 		},
-		actions: {
-			getSwapiData: async (resource="people", id=null) => {
-				// in here fetch the resource and set the store with the reponse data.
-				console.log(resource);
-				
-			},
-			
-				
-		
-			
-			// Use getActions to call a function within a fuction
-			getPeople: async () => {
-				try {
-				  const response = await fetch(`${apiUrl}people/`);
-				  const data = await response.json();
-		
-				  // Update the store with the fetched characters
-				  setStore({ characters: data.results });
-				} catch (error) {
-				  console.error("Error fetching people:", error);
-				}
-			  },
-			
-		}
+  
+		fetchPersonDetails: async (id) => {
+		  try {
+			const url = `https://swapi.dev/api/people/${id}/`;
+			const response = await fetch(url);
+			if (!response.ok) {
+			  throw new Error("Failed to fetch person details");
+			}
+			const data = await response.json();
+			setStore({ currentPerson: data });
+		  } catch (error) {
+			console.error("Error fetching person details: ", error);
+		  }
+		},
+  
+		fetchPlanets: async (resource = "planets", page = 1, count = 0) => {
+		  if (count >= 10) {
+			return;
+		  }
+  
+		  const resp = await fetch(
+			`https://swapi.dev/api/${resource}/?page=${page}`
+		  );
+		  const data = await resp.json();
+  
+		  const planetsWithId = data.results.map((planet) => {
+			const urlParts = planet.url.split("/");
+			const id = urlParts[urlParts.length - 2];
+			return { ...planet, id };
+		  });
+  
+		  setStore({ planets: [...getStore().planets, ...planetsWithId] });
+  
+		  if (data.next) {
+			getActions().fetchPlanets(resource, page + 1, count + 1);
+		  }
+		},
+  
+		fetchPlanetDetail: async (id) => {
+		  try {
+			const url = `https://swapi.dev/api/planets/${id}/`; // Update the API endpoint to fetch planet details
+			const response = await fetch(url);
+			if (!response.ok) {
+			  throw new Error("Failed to fetch planet details"); // Update the error message
+			}
+			const data = await response.json();
+			setStore({ currentPlanet: data }); // Set the currentPlanet in the store
+		  } catch (error) {
+			console.error("Error fetching planet details: ", error); // Update the error message
+		  }
+		},
+  
+		fetchStarShips: async (resource = "starships", page = 1, count = 0) => {
+		  if (count >= 10) {
+			return;
+		  }
+  
+		  const resp = await fetch(
+			`https://swapi.dev/api/${resource}/?page=${page}`
+		  );
+		  const data = await resp.json();
+  
+		  const starshipsWithId = data.results.map((starship) => {
+			const urlParts = starship.url.split("/");
+			const id = urlParts[urlParts.length - 2];
+			return { ...starship, id };
+		  });
+  
+		  setStore({ starships: [...getStore().starships, ...starshipsWithId] });
+  
+		  if (data.next) {
+			getActions().fetchStarShips(resource, page + 1, count + 1);
+		  }
+		},
+		fetchStarshipDetails: async (id) => {
+		  try {
+			const url = `https://swapi.dev/api/starships/${id}/`; // Update the API endpoint to fetch starship details
+			const response = await fetch(url);
+			if (!response.ok) {
+			  throw new Error("Failed to fetch starship details"); // Update the error message
+			}
+			const data = await response.json();
+			setStore({ currentStarship: data }); // Set the currentStarship in the store
+		  } catch (error) {
+			console.error("Error fetching starship details: ", error); // Update the error message
+		  }
+		},
+		addFavorites: (name, id, type) => {
+		  const store = getStore();
+		  const newFavorite = { name, id, type }; // Include a type ('person', 'planet', 'starship')
+		  const newFavorites = [...store.favorites, newFavorite];
+		  setStore({ favorites: newFavorites });
+		},
+  
+		removeFavorites: (name) => {
+		  const store = getStore();
+		  const newFavorites = store.favorites.filter(
+			(favorite) => favorite.name !== name
+		  );
+		  setStore({ favorites: newFavorites });
+		},
+	  },
 	};
-};
-
-export default getState;
+  };
+  
+  export default getState;
