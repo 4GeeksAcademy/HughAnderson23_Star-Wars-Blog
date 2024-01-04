@@ -12,7 +12,7 @@ export const Navbar = () => {
   }, [store.favorites]);
 
   return (
-    <nav className="navbar bg-body-tertiary">
+    <nav className="navbar bg-off-black">
       <div className="container-fluid">
         <Link to="/">
           <span className="navbar-brand mb-0 h1">Home</span>
