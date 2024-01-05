@@ -5,24 +5,23 @@ import { Context } from "../store/appContext";
 
 function PeopleCard() {
   const { store, actions } = useContext(Context);
-  const [people, setPeople] = useState([]);
-
-  // Fetch people on component mount
+  // const [people, setPeople] = useState([]);
+  const [activeFav, setActiveFav] = useState(false);
+ 
   useEffect(() => {
     actions.fetchPeople();
   }, []);
 
-  useEffect(() => {
-    setPeople(store.people);
-  }, [store.people]);
+  // useEffect(() => {
+  //   setPeople(store.people);
+  // }, [store.people]);
 
-  // Handling the favorites toggle
   const handleFavorites = (person) => {
     const isFavorite = store.favorites.some((fav) => fav.name === person.name);
     if (isFavorite) {
-      actions.removeFavorites(person.name); // Make sure this correctly identifies the person to remove
+      actions.removeFavorites(person.name); 
     } else {
-      actions.addFavorites(person.name, person.id, "character");
+      actions.addFavorites(person.name,  "character");
     }
   };
 
@@ -31,9 +30,9 @@ function PeopleCard() {
       className="d-flex col-10 overflow-auto mt-5 mx-auto cards"
       style={{ height: "50rem" }}
     >
-      {people.map((person, index) => {
+      {store.people.map((person, index) => {
         const isFavorite = store.favorites.some(
-          (fav) => fav.id === person.id && fav.type === "character"
+          (fav) => fav.name === person.name && fav.type === "character"
         );
         return (
           <div

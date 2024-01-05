@@ -17,7 +17,7 @@ function StarshipCard() {
     if (isFavorite) {
       actions.removeFavorites(starship.name);
     } else {
-      actions.addFavorites(starship.name, starship.id, "starship");
+      actions.addFavorites(starship.name,  "starship");
     }
   };
 
@@ -28,7 +28,7 @@ function StarshipCard() {
     >
       {store.starships.map((starship, index) => {
         const isFavorite = store.favorites.some(
-          (fav) => fav.id === starship.id && fav.type === "starship"
+          (fav) => fav.name === starship.name && fav.type === "starship"
         );
         return (
           <div
@@ -60,4 +60,4 @@ function StarshipCard() {
   );
 }
 
-export default StarshipCard; // Changed export default from PeopleCard to StarshipCard
+export default StarshipCard; 

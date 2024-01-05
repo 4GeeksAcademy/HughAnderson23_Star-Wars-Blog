@@ -16,7 +16,7 @@ function PlanetCard() {
     if (isFavorite) {
       actions.removeFavorites(planet.name);
     } else {
-      actions.addFavorites(planet.name, planet.id, "planet");
+      actions.addFavorites(planet.name,  "planet");
     }
   };
 
@@ -27,7 +27,7 @@ function PlanetCard() {
     >
       {store.planets.map((planet, index) => {
         const isFavorite = store.favorites.some(
-          (fav) => fav.id === planet.id && fav.type === "planet"
+          (fav) => fav.name === planet.name && fav.type === "planet"
         );
         return (
           <div

@@ -72,15 +72,15 @@ const getState = ({ getStore, getActions, setStore }) => {
   
 		fetchPlanetDetail: async (id) => {
 		  try {
-			const url = `https://swapi.dev/api/planets/${id}/`; // Update the API endpoint to fetch planet details
+			const url = `https://swapi.dev/api/planets/${id}/`; 
 			const response = await fetch(url);
 			if (!response.ok) {
-			  throw new Error("Failed to fetch planet details"); // Update the error message
+			  throw new Error("Failed to fetch planet details"); 
 			}
 			const data = await response.json();
-			setStore({ currentPlanet: data }); // Set the currentPlanet in the store
+			setStore({ currentPlanet: data }); 
 		  } catch (error) {
-			console.error("Error fetching planet details: ", error); // Update the error message
+			console.error("Error fetching planet details: ", error); 
 		  }
 		},
   
@@ -111,17 +111,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 			const url = `https://swapi.dev/api/starships/${id}/`; 
 			const response = await fetch(url);
 			if (!response.ok) {
-			  throw new Error("Failed to fetch starship details"); // Update the error message
+			  throw new Error("Failed to fetch starship details"); 
 			}
 			const data = await response.json();
-			setStore({ currentStarship: data }); // Set the currentStarship in the store
+			setStore({ currentStarship: data }); 
 		  } catch (error) {
-			console.error("Error fetching starship details: ", error); // Update the error message
+			console.error("Error fetching starship details: ", error); 
 		  }
 		},
-		addFavorites: (name, id, type) => {
+		addFavorites: (name,  type) => {
 		  const store = getStore();
-		  const newFavorite = { name, id, type}; 
+		  const newFavorite = { name, type}; 
 		  const newFavorites = [...store.favorites, newFavorite];
 		  setStore({ favorites: newFavorites });
 		},
