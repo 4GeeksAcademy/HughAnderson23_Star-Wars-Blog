@@ -2,26 +2,25 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
-
 function PeopleCard() {
   const { store, actions } = useContext(Context);
-  // const [people, setPeople] = useState([]);
-  const [activeFav, setActiveFav] = useState(false);
- 
+  const [people, setPeople] = useState([]);
+  // Fetch people on component mount
   useEffect(() => {
     actions.fetchPeople();
   }, []);
+  useEffect(() => {
+    setPeople(store.people);
+  }, [store.people]);
 
-  // useEffect(() => {
-  //   setPeople(store.people);
-  // }, [store.people]);
-
+  // Handling the favorites toggle
   const handleFavorites = (person) => {
     const isFavorite = store.favorites.some((fav) => fav.name === person.name);
+    
     if (isFavorite) {
-      actions.removeFavorites(person.name); 
+      actions.removeFavorites(person.name); // Make sure this correctly identifies the person to remove
     } else {
-      actions.addFavorites(person.name,  "character");
+      actions.addFavorites(person.name, person.id, "character");
     }
   };
 
@@ -30,7 +29,7 @@ function PeopleCard() {
       className="d-flex col-10 overflow-auto mt-5 mx-auto cards"
       style={{ height: "50rem" }}
     >
-      {store.people.map((person, index) => {
+      {people.map((person, index) => {
         const isFavorite = store.favorites.some(
           (fav) => fav.name === person.name && fav.type === "character"
         );
@@ -62,8 +61,7 @@ function PeopleCard() {
           </div>
         );
       })}
-    </div>
-  );
-}
-
-export default PeopleCard;
+      </div>
+    );
+  }
+  export default PeopleCard;

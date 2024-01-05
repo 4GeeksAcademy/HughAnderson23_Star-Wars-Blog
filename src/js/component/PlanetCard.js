@@ -2,24 +2,22 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
-
 function PlanetCard() {
   const { store, actions } = useContext(Context);
   const [activeFav, setActiveFav] = useState(false);
-
   useEffect(() => {
     actions.fetchPlanets();
   }, []);
 
   const handleFavorites = (planet) => {
     const isFavorite = store.favorites.some((fav) => fav.name === planet.name);
+    
     if (isFavorite) {
       actions.removeFavorites(planet.name);
     } else {
-      actions.addFavorites(planet.name,  "planet");
+      actions.addFavorites(planet.name, planet.id, "planet");
     }
   };
-
   return (
     <div
       className="d-flex col-10 overflow-auto mt-5 mx-auto cards"
@@ -57,5 +55,4 @@ function PlanetCard() {
     </div>
   );
 }
-
 export default PlanetCard;

@@ -75,7 +75,7 @@ export const Navbar = () => {
           </button>
           <ul className="dropdown-menu">
             {favorites?.map((favorite) => (
-              <li key={favorite.id} className="d-flex justify-content-between align-items-center">
+              <li key={favorite.name} className="d-flex justify-content-between align-items-center">
                 {favorite.type === "character" && (
                   <Link to={`/CharacterDetail/${favorite.id}`}>
                     {favorite.name}

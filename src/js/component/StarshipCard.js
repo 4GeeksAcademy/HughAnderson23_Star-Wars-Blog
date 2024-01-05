@@ -4,9 +4,10 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 
 function StarshipCard() {
+  // Changed function name from PeopleCard to StarshipCard
   const { store, actions } = useContext(Context);
   const [activeFav, setActiveFav] = useState(false);
- 
+
   useEffect(() => {
     actions.fetchStarShips();
   }, []);
@@ -14,13 +15,13 @@ function StarshipCard() {
   // You might need this in another project
   const handleFavorites = (starship) => {
     const isFavorite = store.favorites.some((fav) => fav.name === starship.name);
+   
     if (isFavorite) {
       actions.removeFavorites(starship.name);
     } else {
-      actions.addFavorites(starship.name,  "starship");
+      actions.addFavorites(starship.name, starship.id, "starship");
     }
   };
-
   return (
     <div
       className="d-flex col-10 overflow-auto mt-5 mx-auto cards"
@@ -57,7 +58,6 @@ function StarshipCard() {
         );
       })}
     </div>
-  );
-}
-
-export default StarshipCard; 
+      );
+    }
+    export default StarshipCard; // Changed export default from PeopleCard to StarshipCard
