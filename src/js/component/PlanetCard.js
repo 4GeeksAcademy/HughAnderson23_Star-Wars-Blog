@@ -12,7 +12,7 @@ function PlanetCard() {
   }, []);
 
   const handleFavorites = (planet) => {
-    const isFavorite = store.favorites.some((fav) => fav.id === planet.id);
+    const isFavorite = store.favorites.some((fav) => fav.name === planet.name);
     if (isFavorite) {
       actions.removeFavorites(planet.name);
     } else {

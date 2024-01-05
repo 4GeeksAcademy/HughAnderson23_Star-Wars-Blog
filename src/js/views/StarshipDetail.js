@@ -14,7 +14,7 @@ function StarshipDetail() {
     return <div>Loading...</div>;
   }
 
-  const { name } = store.currentStarship;
+  const { name, model, manufacturer, length, max_atmosphering_speed } = store.currentStarship;
 
   return (
     <div className="card mt-5" style={{ width: "30rem", margin: "auto" }}>
@@ -26,6 +26,10 @@ function StarshipDetail() {
       />
       <div className="card-body">
         <h1 className="card-title">{name}</h1>
+        <p className="card-text">Model: {model}</p>
+        <p className="card-text">Manufacturer: {manufacturer}</p>
+        <p className="card-text">Length: {length}</p>
+        <p className="card-text">Max Atmosphering Speed: {max_atmosphering_speed}</p>
       </div>
     </div>
   );

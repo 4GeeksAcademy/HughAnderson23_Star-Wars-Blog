@@ -108,7 +108,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		fetchStarshipDetails: async (id) => {
 		  try {
-			const url = `https://swapi.dev/api/starships/${id}/`; // Update the API endpoint to fetch starship details
+			const url = `https://swapi.dev/api/starships/${id}/`; 
 			const response = await fetch(url);
 			if (!response.ok) {
 			  throw new Error("Failed to fetch starship details"); // Update the error message
@@ -121,7 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		addFavorites: (name, id, type) => {
 		  const store = getStore();
-		  const newFavorite = { name, id, type }; // Include a type ('person', 'planet', 'starship')
+		  const newFavorite = { name, id, type}; 
 		  const newFavorites = [...store.favorites, newFavorite];
 		  setStore({ favorites: newFavorites });
 		},

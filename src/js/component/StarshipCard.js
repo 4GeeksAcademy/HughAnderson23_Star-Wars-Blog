@@ -4,16 +4,16 @@ import "../../styles/home.css";
 import { Context } from "../store/appContext";
 
 function StarshipCard() {
-  // Changed function name from PeopleCard to StarshipCard
   const { store, actions } = useContext(Context);
   const [activeFav, setActiveFav] = useState(false);
+ 
   useEffect(() => {
     actions.fetchStarShips();
   }, []);
 
   // You might need this in another project
   const handleFavorites = (starship) => {
-    const isFavorite = store.favorites.some((fav) => fav.id === starship.id);
+    const isFavorite = store.favorites.some((fav) => fav.name === starship.name);
     if (isFavorite) {
       actions.removeFavorites(starship.name);
     } else {

@@ -18,7 +18,7 @@ function PeopleCard() {
 
   // Handling the favorites toggle
   const handleFavorites = (person) => {
-    const isFavorite = store.favorites.some((fav) => fav.id === person.id);
+    const isFavorite = store.favorites.some((fav) => fav.name === person.name);
     if (isFavorite) {
       actions.removeFavorites(person.name); // Make sure this correctly identifies the person to remove
     } else {
